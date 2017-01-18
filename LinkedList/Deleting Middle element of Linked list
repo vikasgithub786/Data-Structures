@@ -1,0 +1,102 @@
+public class Node 
+{
+
+	private Object data;
+	private Node next;
+	
+	public  synchronized void setData(Object data){
+		
+		this.data = data;
+	}
+ 	
+    public  synchronized Object getData(){
+		
+		return data;
+	}
+    
+    public  synchronized Node getNext(){
+		
+		return next;
+	}
+    public  synchronized void setNext(Node next){
+		
+		this.next = next;
+	}
+}
+
+
+public class LinkListDemo 
+{
+   	private Node head;
+    private Node temp; 
+    public Node getHead()
+    {
+    	return head;
+    }
+    public void add(Object o)
+    {
+   	  if (head==null)
+   	  { 
+   		 head = new Node();
+   		 head.setData(o);
+   		 temp = head;
+   	  }
+   	  else
+   	  {  
+   		   while(temp.getNext()!= null)
+   		   {
+   			   temp=temp.getNext();
+   		   }
+   		   Node newnode = new Node(); 
+   		   temp.setNext(newnode);
+   		   newnode.setData(o);
+   	  }
+    }
+        
+    public void delMidElement()
+    {
+       Node slowptr =head;
+       Node fastptr = head;
+       Node prevptr = null;
+       if(fastptr.getNext()!=null && fastptr.getNext().getNext()!= null)
+       {
+    	   while(fastptr.getNext()!=null && fastptr.getNext().getNext()!= null)
+    	   {
+    		 prevptr = slowptr;  
+    	     slowptr = slowptr.getNext();
+    	     fastptr = fastptr.getNext().getNext();
+           }
+    	   prevptr.setNext(slowptr.getNext());
+    	   slowptr.setNext(null); 
+       }
+       else{System.out.println("Middle node does not exist");}
+       
+    }
+ 
+}
+
+
+public class Test2 {
+
+	public static void main(String[] args) {
+		LinkListDemo list = new LinkListDemo();
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		list.add(4);
+		
+		list.delMidElement();
+		Node head =list.getHead();
+		while(head!=null)
+		{
+			System.out.println((Integer)head.getData());
+			head = head.getNext();
+			
+		}
+
+	}
+
+}
+
+
+
