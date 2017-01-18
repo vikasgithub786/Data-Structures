@@ -4,3 +4,4 @@ in this repository i am adding popular problems related to data strutures like L
 
 LinkedList Problems -
 1: Reverse a linked list iteratively?
+2: Delete middle node of a linked list?
