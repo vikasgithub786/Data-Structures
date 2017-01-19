@@ -1,0 +1,240 @@
+class Node {
+
+	private Object data;
+	private Node next;
+	
+	public  synchronized void setData(Object data){
+		
+		this.data = data;
+	}
+ 	
+    public  synchronized Object getData(){
+		
+		return data;
+	}
+    
+    public  synchronized Node getNext(){
+		
+		return next;
+	}
+    public  synchronized void setNext(Node next){
+		
+		this.next = next;
+	}
+}
+
+
+
+class LinkListDemo {
+	
+	private Node head;
+    private Node temp;
+    
+    public Node getHead()
+    {
+    	return head;
+    }
+    
+    public void add(Object o)
+    {
+   	 if (head==null)
+   	 {
+   		 head = new Node();
+   		 head.setData(o);
+   		 temp = head;
+   	 }
+   	 else
+   	 {  
+   		 while(temp.getNext()!= null)
+   		 {
+   			 temp=temp.getNext();
+   		 }
+   		 Node newnode = new Node(); 
+   		 temp.setNext(newnode);
+   		 newnode.setData(o);
+   	 }
+    }
+    
+    public static Node mergeList(LinkListDemo l1,LinkListDemo l2)
+    { 
+    	  Node head = null;
+    	  Node listnode =null;
+    	  Node h1 = l1.getHead();
+    	  Node h2 = l2.getHead();
+          while(h1!=null && h2 !=null)
+          {
+    	       if((Integer)h1.getData() >(Integer) h2.getData())
+    	        {
+    	    	      if(head==null)
+    	    	      {
+    	    		      head= h2;
+    	    		      listnode =h2;
+                    
+    	    	      }
+    	    	      else
+    	    	      {
+    	    		       head.setNext(h2);
+    	    		       head= head.getNext();
+                     
+    	    	      }
+    	    	      h2=h2.getNext();
+            }
+          else 
+          {
+    	         if((Integer)h1.getData() <(Integer) h2.getData())
+    	        {   
+    	    	      if(head==null)
+   	    	       {
+   	    		       head= h1;
+   	    		       listnode =h1;
+                   
+   	    	       }
+   	    	       else
+   	    	       {
+   	    		       head.setNext(h1);
+   	    		       head= head.getNext();
+                   
+   	    	       }
+    	    	     h1 = h1.getNext();	 
+    	       }
+    	      
+    	       else
+    	       {  
+    	    	      if(head==null)
+    	            {
+    	    	        head =h1;
+    	    	        listnode =h1;
+                    h1 = h1.getNext();
+    	    	        head.setNext(h2);
+    	    	        head = h2;	 
+                    h2 = h2.getNext();
+                    
+    	            }
+                 else
+   	    	       {
+   	    	        	head.setNext(h1);
+       	    	      head = h1;
+                     h1 = h1.getNext();
+       	    	      head.setNext(h2);
+    	    	        head = h2;  
+                    h2 = h2.getNext();
+                   
+   	    	       }
+
+    	    	 
+    	    	 
+    	    	 
+    	     }
+         }
+      }
+          
+          if(h1!=null)
+          {
+        	  head.setNext(h1);
+          }
+          if(h2!=null)
+          {
+        	  head.setNext(h2);
+          }
+          return listnode;
+    }
+    
+    
+    
+    public void delMidElement()
+    {
+       Node slowptr =head;
+       Node fastptr = head;
+       Node prevptr = null;
+       if(fastptr.getNext()!=null && fastptr.getNext().getNext()!= null)
+       {
+    	   while(fastptr.getNext()!=null && fastptr.getNext().getNext()!= null)
+    	   {
+    		 prevptr = slowptr;  
+    	     slowptr = slowptr.getNext();
+    	     fastptr = fastptr.getNext().getNext();
+           }
+    	   prevptr.setNext(slowptr.getNext());
+    	   slowptr.setNext(null); 
+       }
+       else{System.out.println("Middle node does not exist");}
+       
+    }
+    
+    public void reverse()
+    {
+    	Node temp = head;
+    	Node carry =head;
+    	Node current;
+    	int c=1;
+    	while(temp!= null)
+    	{
+    		if(c==1)
+		{
+			temp = temp.getNext();
+    			current = temp.getNext();
+    			temp.setNext(carry);
+    			if(c == 1){carry.setNext(null);}
+    			carry = temp;
+			temp=current;
+    			c++;
+		}
+		else
+	     {   
+                current = temp.getNext();
+    			temp.setNext(carry);   			
+    			carry = temp;
+			    temp=current;
+    			c++;
+           }
+    	}
+    	head =carry;
+    }
+}
+
+
+
+
+
+
+ class Test2 {
+
+	public static void main(String[] args) {
+		LinkListDemo list1 = new LinkListDemo();
+		list1.add(-1);
+		list1.add(2);
+		list1.add(2);
+		list1.add(4);
+		LinkListDemo list2 = new LinkListDemo();
+		list2.add(-2);
+    list2.add(-1);
+    list2.add(0);
+    list2.add(10);
+    list2.add(10);
+    list2.add(15);
+    list2.add(16);
+    list2.add(17);
+
+		
+		
+		Node head = LinkListDemo.mergeList(list1,list2);
+		while(head!=null)
+		{
+			System.out.print(head.getData()+ " ");
+			head= head.getNext();
+		}
+		
+		
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
