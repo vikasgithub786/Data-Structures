@@ -1,0 +1,127 @@
+class Node {
+
+	private Object data;
+	private Node next;
+	
+	public  synchronized void setData(Object data){
+		
+		this.data = data;
+	}
+ 	
+    public  synchronized Object getData(){
+		
+		return data;
+	}
+    
+    public  synchronized Node getNext(){
+		
+		return next;
+	}
+    public  synchronized void setNext(Node next){
+		
+		this.next = next;
+	}
+}
+
+
+// LinkListDemo class add method is customized so later on in main method we can create a looped link list to test our loop finding method
+
+class LinkListDemo 
+{
+	
+	private Node head;
+    private Node temp;
+    static Node loop;
+    static int j=0;
+    
+    public Node getHead()
+    {
+    	return head;
+    }
+    
+    public void add(Object o)
+    {
+   	 if (head==null)
+   	 {
+   		 head = new Node();
+   		 head.setData(o);
+   		 temp = head;
+       j++;
+   	 }
+   	 else
+   	 {  
+   		 while(temp.getNext()!= null)
+   		 {
+   			 temp=temp.getNext();
+   		 }
+   		 Node newnode = new Node(); 
+   		 temp.setNext(newnode);
+   		 newnode.setData(o);
+       j++;
+       if(j==5){loop = newnode;}
+   	 }
+    }
+
+  }
+
+//class Test contains methods to find loop and main method to test our code.
+
+class Test 
+  {
+
+  public static boolean findLoop(LinkListDemo l)
+  {
+    Node fastptr = l.getHead();
+    Node slowptr = l.getHead();
+    while(fastptr!=null && fastptr.getNext()!=null)
+    {
+        slowptr =slowptr.getNext();
+        fastptr = fastptr.getNext().getNext();
+        if(slowptr==fastptr)
+        {
+          return true;
+        }
+    }
+    return false;
+  }
+
+
+ 
+
+  public static void main(String[] args)
+  {  
+    LinkListDemo list2 = new LinkListDemo();
+    list2.add(-2);
+    list2.add(-1);
+    list2.add(0);
+    list2.add(10);
+    list2.add(10);
+    list2.add(15);
+    list2.add(16);
+    list2.add(17);
+    list2.add(18);
+    list2.add(19);
+    list2.add(111);
+    list2.add(20);
+
+    LinkListDemo list1 = new LinkListDemo();
+    list1.add(-2);
+    list1.add(-1);
+    list1.add(0);
+    list1.add(10);
+    list1.add(10);
+    
+    
+    Node head=list2.getHead();
+    while(head.getNext() != null)
+    {   
+      head= head.getNext();
+    }
+    
+    head.setNext(LinkListDemo.loop);                                     //making list2 a list with loop,list 1 is normal linked list.
+    System.out.println("is any loop present :"+findLoop(list2));
+    System.out.println("is any loop present :"+findLoop(list1));
+    
+  }
+
+}
