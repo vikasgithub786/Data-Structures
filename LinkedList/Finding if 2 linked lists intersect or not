@@ -1,0 +1,184 @@
+class Node {
+
+	private Object data;
+	private Node next;
+	
+	public  synchronized void setData(Object data){
+		
+		this.data = data;
+	}
+ 	
+    public  synchronized Object getData(){
+		
+		return data;
+	}
+    
+    public  synchronized Node getNext(){
+		
+		return next;
+	}
+    public  synchronized void setNext(Node next){
+		
+		this.next = next;
+	}
+}
+
+
+
+class LinkListDemo {
+	
+	private Node head;
+    private Node temp;
+    static Node loop;
+    static int j=0;
+    
+    public Node getHead()
+    {
+    	return head;
+    }
+    
+    public void add(Object o)
+    {
+   	 if (head==null)
+   	 {
+   		 head = new Node();
+   		 head.setData(o);
+   		 temp = head;
+       j++;
+   	 }
+   	 else
+   	 {  
+   		 while(temp.getNext()!= null)
+   		 {
+   			 temp=temp.getNext();
+   		 }
+   		 Node newnode = new Node(); 
+   		 temp.setNext(newnode);
+   		 newnode.setData(o);
+       j++;
+       if(j==5){loop = newnode;}
+   	 }
+    }
+  }
+
+  class Test2 
+  {
+
+   public static boolean isListIntersecting(LinkListDemo l1,LinkListDemo l2)
+   {
+      int length1=0, length2=0,diff=0;
+      Node h1 = l1.getHead();
+      Node h2 = l2.getHead();
+       while(h1 !=null)
+        {
+          length1++;
+          h1=h1.getNext();
+        }
+       while(h2 !=null)
+        {
+          length2++;
+          h2=h2.getNext();
+        }
+
+        if(length1>length2)
+        {
+            diff = length1-length2;
+            h1 = l1.getHead();
+            h2 = l2.getHead();
+
+            while(diff>0)
+            { 
+              h1=h1.getNext();
+              --diff;
+            }
+            while(h1!=null && h2!=null)
+            { 
+              if(h1==h2)
+              {
+                return true;
+              }
+              h1=h1.getNext();
+              h2=h2.getNext();
+              
+            }
+            return false;
+
+        }
+        else
+        {
+            diff = length2-length1;
+            h1 = l1.getHead();
+            h2 = l2.getHead();
+
+            while(diff>0)
+            { 
+              h2=h2.getNext();
+              --diff;
+            }
+            while(h1!=null && h2!=null)
+            { 
+              if(h1==h2)
+              {
+                return true;
+              }
+              h1=h1.getNext();
+              h2=h2.getNext();
+              
+            }
+            return false;
+        }
+   }
+
+  
+  public static void main(String[] args) {
+    
+    LinkListDemo list2 = new LinkListDemo();
+    list2.add(-2);
+    list2.add(-1);
+    list2.add(0);
+    list2.add(10);
+    list2.add(10);
+    list2.add(15);
+    list2.add(16);
+    list2.add(17);
+    list2.add(18);
+    list2.add(19);
+    list2.add(111);
+    list2.add(20);
+
+    LinkListDemo list1 = new LinkListDemo();
+    list1.add(-2);
+    list1.add(-1);
+    list1.add(0);
+    list1.add(10);
+    list1.add(10);
+    
+    LinkListDemo list3 = new LinkListDemo();
+    list3.add(-3);
+    list3.add(-10);
+    list3.add(50);
+    list3.add(11);
+    list3.add(101);
+    
+    
+    Node head2=list2.getHead();
+    while(head2.getNext()!= null)
+    {
+      
+      head2= head2.getNext();
+    }
+    
+    head2.setNext(list3.getHead());
+
+    Node head1=list1.getHead();
+    while(head1.getNext()!= null)
+    {
+      
+      head1= head1.getNext();
+    }
+    
+    head1.setNext(list3.getHead());
+    System.out.println(Test2.isListIntersecting(list1,list2));    
+  }
+
+}
