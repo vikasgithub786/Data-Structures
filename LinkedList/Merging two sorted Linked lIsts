@@ -54,7 +54,8 @@ class LinkListDemo {
    		 newnode.setData(o);
    	 }
     }
-    
+
+
     public static Node mergeList(LinkListDemo l1,LinkListDemo l2)
     { 
     	  Node head = null;
