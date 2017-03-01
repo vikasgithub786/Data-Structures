@@ -1,0 +1,152 @@
+public class StackByArray
+{
+  private int CAPACITY;
+  private int top = -1;
+  private int topmax;
+  private Object[] o;
+
+  StackByArray()
+  {
+  	this.CAPACITY=10;
+  	o = new Object[10];
+  	this.topmax =9;
+  }
+
+  StackByArray(int cap)
+  {
+     this.CAPACITY = cap;
+     o = new Object[CAPACITY];
+     this.topmax = CAPACITY -1;
+  }
+
+
+  public void push(Object element) throws Exception
+  {
+  		if(top == topmax)
+  		{
+  			throw new Exception("Stack is full cant push element");
+  		}
+  		else
+  		{
+  			top++;
+  			o[top] = element;
+  		}
+
+  }
+
+
+  public Object pop() throws Exception
+  {
+  	    Object i = null;
+  		if(top < 0)
+  		{
+  			throw new Exception("Stack is empty cant pop elements");    
+  		}
+  		else
+  		{
+  			i = o[top];
+  			o[top] = null;
+  			top--;
+  		}
+  		return i;
+  }
+
+  
+  public Object peek() throws Exception
+  {
+  	    Object i = null;
+  		if(top < 0)
+  		{
+  			throw new Exception("Stack is empty cant pop elements");	    
+  		}
+  		else
+  		{
+  			i = o[top];
+  		}
+  		return i;
+  }
+
+  public int size()
+  {
+  	int size =top+1;
+  	if(top < 0)
+  	{
+  		size = 0;
+  	}	
+    return size;
+  }
+
+  public int capacity()
+  {
+  	return CAPACITY;
+  }
+
+
+  public boolean isEmpty()
+  {
+  	boolean b = false;
+    if(top < 0)
+    {
+      b =true;
+    }
+    return b;
+  }
+
+   public boolean isFull()
+  {
+  	boolean b = false;
+    if(top == topmax)
+    {
+      b =true;
+    }
+    return b;
+  }
+
+  public String toString()
+  {
+  	String s = "Stack is empty";
+     if(top >= 0)
+     {
+     	 s= "";
+     	for(int i=0;i<=top;i++)
+     	{
+     		s= s+" "+ o[i];
+     	}
+     }
+    return s;
+  
+  }
+
+}
+
+
+class Test
+{
+   public static void main(String[] args) throws Exception
+   {
+     StackByArray stack = new StackByArray(7);
+     stack.push(new Integer(1));
+     stack.push(new Integer(2));
+     stack.push(new Integer(3));
+     stack.push(new Integer(4));
+     stack.push(new Integer(5));
+     stack.push(new Integer(6));
+     stack.push(new Integer(7));
+
+     System.out.println("The stack contains values" + stack);
+  
+     System.out.print(stack.pop());
+     System.out.print(stack.pop());
+     System.out.print(stack.pop());
+     System.out.print(stack.pop());
+     System.out.println(stack.pop());  
+
+      System.out.println(stack.size());
+      System.out.println(stack.capacity());
+      System.out.println(stack.isEmpty());
+      System.out.println(stack.isFull());
+      System.out.println(stack.peek());
+     
+   }
+
+}
