@@ -180,5 +180,4 @@ class LinkListDemo {
     head1.setNext(list3.getHead());
     System.out.println(Test2.isListIntersecting(list1,list2));    
   }
-
 }
