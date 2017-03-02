@@ -23,7 +23,6 @@ class Node {
 	}
 }
 
-
 // LinkListDemo class add method is customized so later on in main method we can create a looped link list to test our loop finding method
 
 class LinkListDemo.
