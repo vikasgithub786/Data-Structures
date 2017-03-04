@@ -123,5 +123,4 @@ class Test
     System.out.println("is any loop present :"+findLoop(list1));
     
   }
-
 }
