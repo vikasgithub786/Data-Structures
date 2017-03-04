@@ -1,0 +1,166 @@
+class Node
+{
+   private Node next;
+   private Object data;
+
+
+  public synchronized Object getData()
+  {
+  	return data;
+  }
+   
+  public synchronized Node getNext()
+  {
+  	return next;
+  }
+  
+
+  public synchronized void setData(Object o)
+  {
+  	  this.data = o;
+  }
+   
+  public synchronized void setNext(Node n)
+  {  
+  	  this.next = n;
+  }
+
+}
+
+
+
+class LinkedList
+{
+   private Node head;
+   private Node temp;
+   
+
+   	public Node getHead()
+    {
+   	  return head;
+    }
+
+
+     public void add(Object o)
+    {
+   	    if (head==null)
+   	    {
+   		  head = new Node();
+   		  head.setData(o);
+   		  temp = head;
+   	    }
+   	    else
+   	   {  
+   		 while(temp.getNext()!= null)
+   		 {
+   			 temp=temp.getNext();
+   		 }
+   		 Node newnode = new Node(); 
+   		 temp.setNext(newnode);
+   		 newnode.setData(o);
+   	 }
+    }
+    
+}
+
+
+class StackByLinkedList
+{
+  
+   private int length;
+   private Node head;
+   private Node n;
+   private Object ob;
+
+   public void push(Object o1)
+   {
+     length++;
+   	 n = new Node();
+   	 n.setNext(head);
+   	 n.setData(o1);
+   	 head = n;  	 
+   
+   }
+
+   public Object pop() throws Exception
+   {
+   	 if(head==null)
+   	 {
+       throw new Exception("Stack is empty");
+  	 }
+  	 length--;
+     ob = head.getData();
+     Node temp = head;
+     head = head.getNext();
+     temp.setNext(null);
+     temp =null;
+     return ob;
+   }
+    
+
+   public int size()
+   {
+  
+      return length;
+   }
+
+   public boolean  isEmpty()
+   {
+   	 boolean b =false;
+     if(head==null)
+     {
+     	b=true;
+     }
+     return b;
+   }
+
+   public String toString()
+   {
+   	  Node temp1 = head;
+   	  String s="[";
+   	  
+      while(temp1!=null)
+      {
+         s= s+" "+ temp1.getData();
+         temp1=temp1.getNext();
+      }
+     s = s+" "+ "]";
+     return s;
+   }
+
+
+}
+
+
+
+class Test
+{
+    public static void main(String[] args) throws Exception
+    {
+       StackByLinkedList stack = new StackByLinkedList();
+    
+       stack.push(new Integer(1));
+       stack.push(new Integer(2));
+       stack.push(new Integer(3));
+       stack.push(new Integer(4));
+       stack.push(new Integer(5));
+       stack.push(new Integer(6));
+       stack.push(new Integer(7));
+       stack.push(new Integer(8));
+
+       
+       System.out.println(stack.pop());
+       System.out.println(stack.pop());
+       System.out.println(stack.pop());
+
+       System.out.println(stack.size());
+       
+       System.out.println(stack.isEmpty());
+
+
+    }
+
+
+
+
+}
