@@ -24,7 +24,6 @@ class Node {
 }
 
 
-
 class LinkListDemo {
 	
 	private Node head;
