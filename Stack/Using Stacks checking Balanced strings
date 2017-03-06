@@ -1,0 +1,89 @@
+import java.util.*;
+
+
+
+class BalancedString
+{
+
+	public static boolean isStringBalanced(String s)
+	{
+		boolean b =true;
+		char[] c = s.toCharArray();
+		Stack stack = new Stack();
+		int count =0;
+		for(int i = 0;i<s.length();i++)
+		{
+ 			if(c[i]=='(' || c[i]=='{' || c[i]=='[')
+ 			{
+ 				count++;
+ 				stack.push(c[i]);
+ 			}
+ 			if(c[i]==')' || c[i]=='}' || c[i]==']')
+ 			{
+ 				count++;
+ 			 try
+ 			 {
+ 				char ch = (Character)stack.peek();
+ 				if(c[i]==')' && ch == '(')
+ 				{
+ 					stack.pop();
+ 					continue;
+ 				}
+ 				if(c[i]==')' && ch != '(')
+ 				{
+ 					b=false;
+ 					break;
+ 				}
+ 				 if(c[i]=='}' && ch == '{')
+ 				{
+ 					stack.pop();
+ 					continue;
+ 				}
+ 				if(c[i]=='}' && ch != '{')
+ 				{
+ 					b=false;
+ 					break;
+ 				}
+ 				if(c[i]==']' && ch == '[')
+ 				{
+ 					stack.pop();
+ 					continue;
+ 				}
+ 				if(c[i]==']' && ch != '[')
+ 				{
+ 					b=false;
+ 					break;
+ 				}
+ 			  }
+
+ 			  catch(Exception e)
+ 			  {
+ 			  	
+ 			  	b=false;
+ 			  }
+ 			}		
+
+		}
+		
+		if(!stack.isEmpty() || count==0)
+		{
+			b=false;
+		}
+		
+
+        return b;
+
+	}
+
+
+
+
+	public static void main(String[] args)
+	{
+       Scanner sc = new Scanner(System.in);
+       String b = sc.nextLine();
+       System.out.println("balanced: " + isStringBalanced(b));
+       sc.close();
+	}
+
+}
