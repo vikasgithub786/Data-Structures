@@ -1,0 +1,74 @@
+import java.lang.Math;
+import java.util.*;
+
+class PostfixEval
+{
+
+   public static String eval(String s)
+   {
+   	  char[] c = s.toCharArray();
+      Stack stack = new Stack();
+      int sum =0;
+
+     for(int i= 0;i<s.length();i++)
+     {	
+       if( c[i]=='^'|| c[i]=='/'|| c[i]=='*'|| c[i]=='+'||c[i]=='-')
+       {
+           String s1 = stack.pop().toString();
+           String s2 = stack.pop().toString();
+
+           int i1 = Integer.parseInt(s1);
+           int i2 = Integer.parseInt(s2);
+
+           if(c[i]=='^')
+           {
+           	 sum=(int)Math.pow(i2,i1);
+            
+           }
+           if(c[i]=='/')
+           {
+           	sum = i2/i1;
+           }
+            if(c[i]=='*')
+           {
+           	sum = i2*i1;
+           }
+            if(c[i]=='+')
+           {
+           	sum = i2+i1;
+           }
+            if(c[i]=='-')
+           {
+           	sum = i2-i1;
+           }
+
+           stack.push(sum);
+        
+       }
+       else
+       {
+          String f = Character.toString(c[i]);
+          stack.push(f);
+
+       }
+
+    }
+
+     return stack.pop().toString();
+
+
+   }
+
+
+
+    public static void main(String[] args)
+    {
+
+       Scanner sc = new Scanner(System.in);
+       String qns = sc.nextLine();
+       System.out.println(eval(qns));
+
+    }
+ 
+
+}
