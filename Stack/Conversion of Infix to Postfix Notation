@@ -1,0 +1,100 @@
+import java.util.*;
+
+class InfixToPostfix
+{
+    public static String convertToPostfix(String s)
+    {
+        char[] c = s.toCharArray();
+        Stack stack = new Stack();
+        stack.push('(');
+        String exp ="";
+        int prec =0;
+        int comp =0;
+
+        HashMap hm = new HashMap(5);
+        hm.put(new Character('('), new Integer(6));
+        hm.put(new Character('^'), new Integer(5));
+        hm.put(new Character('/'), new Integer(4));
+        hm.put(new Character('*'), new Integer(4));
+        hm.put(new Character('+'), new Integer(3));
+        hm.put(new Character('-'), new Integer(3));
+
+        for(int i =0;i<s.length();i++)
+        {
+            if(c[i]=='(')
+            {
+            
+            	stack.push(c[i]);
+
+            }
+
+            if(c[i] == ')')
+            { 
+            	char q=(Character)stack.pop();;
+            	while(q!='(')
+            	{            		
+            		exp = exp+q;
+            		q = (Character)stack.pop();
+
+            	}
+            }
+
+
+            if( c[i]=='^'|| c[i]=='/'|| c[i]=='*'|| c[i]=='+'||c[i]=='-')
+            {
+
+            	prec= (Integer)hm.get(new Character(c[i]));
+            	comp =(Integer)hm.get(new Character((Character)stack.peek()));
+            	if(comp == 6)
+            	{
+            		stack.push(c[i]);
+            	}
+            	else
+            	{	
+                	
+                	if(prec<=comp)
+                	{   //System.out.println(exp);
+               	        exp = exp + (Character)stack.pop();
+               	       // System.out.println(exp);
+
+                		stack.push(c[i]);
+                	}
+                	else
+                	{
+                		stack.push(c[i]);
+                	}
+           		}	
+
+            }
+            else
+            {
+
+            	if(c[i]!='(' && c[i]!=')')
+            	{
+            	   exp = exp+c[i];
+                }
+
+            }
+       
+        }
+        
+        char d=(Character)stack.pop();;
+        while(d!='(')
+        {            		
+      		exp = exp+d;
+      		d = (Character)stack.pop();
+
+      	}
+        return exp;
+   }
+	
+	public  static void main(String[] args)
+	{
+       Scanner sc = new Scanner(System.in);
+       String qns = sc.nextLine();
+       System.out.println(convertToPostfix(qns));
+       //convertToPostfix(qns);
+
+	}
+
+}
