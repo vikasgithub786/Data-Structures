@@ -1,0 +1,114 @@
+class CircularArrayQueue
+{
+
+   private  int front;
+   private  int rear;
+   private  int size; 
+   private  int capacity;
+   private  Object[] q;
+
+   
+   CircularArrayQueue()
+   {
+      this.q = new Object[5];
+      this.front = 0;
+      this.rear = 0;
+      this.size = 0;
+      this.capacity = 5;
+   }  
+
+  public void enQueue(Object a) throws Exception
+  {
+     if(size == capacity)
+     {
+         throw new Exception("Queue is full, cant insert data");
+     }
+     size++;
+     q[rear] = a;
+     rear = (rear+1) % capacity;
+  }
+
+  public  Object deQueue() throws Exception
+  {
+     if(size == 0)
+     {
+         throw new Exception("Queue is empty");
+     }
+     size--;
+     Object data = q[front];
+     q[front] = Integer.MIN_VALUE;
+     front = (front+1) % capacity;
+     return data;
+  }
+
+  public  boolean isEmpty()
+  {
+
+  	return (size == 0);
+  }
+
+  public  boolean isFull()
+  {
+  	return (size == capacity);
+  }
+
+  public  Object front() throws Exception
+  { 
+  	if(size == 0)
+     {
+         throw new Exception("Queue is empty");
+     }
+     
+     Object data = q[front];
+     return data;
+ }
+
+ public  int qsize()
+ {
+   return size;
+ }
+
+ public String toString()
+ {
+ 	String s ="[ ";
+ 	
+    for(int i=0;i<size;i++)
+    { 
+      s = s+" "+ q[(front+i) % capacity];
+    	
+    }  
+    s= s+ "]" ;  
+    return s;
+ }
+
+
+
+  public static void main(String[] args) throws Exception
+  {
+    CircularArrayQueue que = new CircularArrayQueue();
+    que.enQueue("a");
+    que.enQueue("b");
+    que.enQueue(3);
+    que.enQueue(4);
+    que.enQueue(5);
+    System.out.println("size = " + que.qsize());
+
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println("size = " + que.qsize());
+
+
+    que.enQueue(7);
+    que.enQueue(8);
+    que.enQueue(9);
+    System.out.println(que);
+    System.out.println(que.front());
+    System.out.println(que);
+
+   System.out.println(que.isEmpty());
+   System.out.println(que.isFull());
+
+ }
+
+}
