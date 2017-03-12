@@ -1,0 +1,144 @@
+class Node
+{ 
+  private Object data;
+  private Node next;
+
+  public void setData(Object o)
+  {
+    this.data = o;
+  }
+  
+  public Object getData()
+  {
+    return data;
+  }
+
+   public void setNext(Node n)
+  {
+    this.next = n;
+  }
+
+  public Node getNext()
+  {
+     return next;
+  }
+
+
+
+}
+
+
+
+class LLQueue
+{
+   private Node front;
+   private Node rear;
+   private int size;
+
+   public void enQueue(Object o)
+   {
+   	 
+     if(size==0)
+     {  
+     	size++;
+     	rear = new Node();
+     	front =rear;
+     	rear.setData(o);
+        rear.setNext(null);
+     }
+     else
+     {
+       size++;
+       Node temp = rear;
+       rear = new Node();
+       temp.setNext(rear);
+       rear.setData(o);
+       rear.setNext(null);
+     }
+    
+     
+   }
+
+   public Object deQueue() throws Exception
+   {
+   	 if(size==0)
+   	 {
+   	 	throw new Exception("queue is empty");
+   	 }
+   	 size--;
+     Object data = front.getData();
+     Node temp1 = front.getNext();
+     front.setNext(null);
+     front = temp1;
+     return data;
+   }
+
+   public int qsize()
+   {
+   	 return size;
+   }
+
+  public String toString()
+  {
+  	  Node head= front;
+  	  String s="[ ";
+      
+      while(head!=null)
+      {
+         s = s+" "+head.getData();
+	     head = head.getNext();
+
+      }
+      s=s+" ]";
+      return s;
+
+  }
+
+
+ public static void main(String[] args) throws Exception
+  {
+    LLQueue que = new LLQueue();
+    que.enQueue(1);
+    que.enQueue(2);
+    que.enQueue(3);
+    que.enQueue(4);
+    que.enQueue(5);
+    que.enQueue(6);
+    que.enQueue(7);
+    que.enQueue(8);
+    que.enQueue(9);
+    que.enQueue(10);
+    que.enQueue(11);
+    que.enQueue(12);
+    
+    System.out.println(que);
+        
+    System.out.println("size = " + que.qsize());
+
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+
+   
+    
+    que.enQueue(4);
+    que.enQueue(5);
+   
+    System.out.println(que);   
+    System.out.println("size = " + que.qsize());
+
+ }
+
+}
+
+
+
+
+
+
