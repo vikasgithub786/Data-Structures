@@ -1,0 +1,196 @@
+class DynamicArrayQueue
+{
+
+   private  int front;
+   private  int rear;
+   private  int size; 
+   private  int capacity;
+   private  int min_capacity;
+
+   private  Object[] q;
+
+   
+   DynamicArrayQueue()
+   {
+      this.q = new Object[12];
+      this.front = 0;
+      this.rear = 0;
+      this.size = 0;
+      this.capacity =12;
+      this.min_capacity = 3;
+     
+   }  
+   
+    DynamicArrayQueue(int cap)
+   {
+      this.q = new Object[cap];
+      this.front = 0;
+      this.rear = 0;
+      this.size = 0;
+      this.capacity =cap;
+      this.min_capacity = cap/4;
+     
+   }  
+   
+  private void expand()
+  {
+  	int exp = 2*capacity;
+    Object[] temp = new Object[exp];
+    for(int i=0;i<size;i++)
+    {
+      temp[i] = q[(front+i) % capacity];
+      
+    }
+    q=temp;
+    capacity = exp;
+    front = 0;
+    rear = size; 
+  }
+  
+  public void shrink()
+  {
+  	if(size <= min_capacity)
+    {  	
+      int exp = capacity/2;
+      Object[] temp = new Object[exp];
+      for(int i=0;i<size;i++)
+      {
+        temp[i] = q[(front+i) % capacity];
+
+      }
+      q=temp;
+      capacity = exp;
+      front = 0;
+      rear = size; 
+    } 
+ }
+
+  public void enQueue(Object a) 
+  {
+     if(size == capacity)
+     {
+         expand();
+     }
+     size++;
+     q[rear] = a;
+     rear = (rear+1) % capacity;
+  }
+
+  public  Object deQueue() throws Exception
+  {
+     if(size == 0)
+     {
+         throw new Exception("Queue is empty");
+     }
+     size--;
+     Object data = q[front];
+     q[front] = Integer.MIN_VALUE;
+     front = (front+1) % capacity;
+     return data;
+  }
+
+  public  int qcapacity()
+  {
+
+  	return capacity;
+  }
+
+  public  boolean isEmpty()
+  {
+
+  	return (size == 0);
+  }
+
+  public  boolean isFull()
+  {
+  	return (size == capacity);
+  }
+
+  public  Object front() throws Exception
+  { 
+  	if(size == 0)
+     {
+         throw new Exception("Queue is empty");
+     }
+     
+     Object data = q[front];
+     return data;
+ }
+
+ public  int qsize()
+ {
+   return size;
+ }
+
+ public String toString()
+ {
+ 	String s ="[ ";
+ 	
+    for(int i=0;i<size;i++)
+    { 
+      s = s+" "+ q[(front+i) % capacity];
+    	
+    }  
+    s= s+ "]" ;  
+    return s;
+ }
+
+
+
+  public static void main(String[] args) throws Exception
+  {
+    DynamicArrayQueue que = new DynamicArrayQueue(12);
+    que.enQueue(1);
+    que.enQueue(2);
+    que.enQueue(3);
+    que.enQueue(4);
+    que.enQueue(5);
+    que.enQueue(6);
+    que.enQueue(7);
+    que.enQueue(8);
+    que.enQueue(9);
+    que.enQueue(10);
+    que.enQueue(11);
+    que.enQueue(12);
+    
+    System.out.println(que);
+    System.out.println("capacity = "+que.qcapacity());    
+    System.out.println("size = " + que.qsize());
+
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+    System.out.println(que.deQueue());
+
+    que.shrink();
+    System.out.println(que);
+    System.out.println("shrink capacity = "+que.qcapacity());    
+    System.out.println("size = " + que.qsize());
+
+    
+    
+    que.enQueue(4);
+    que.enQueue(5);
+    que.enQueue(6);
+    que.enQueue(7);
+    que.enQueue(8);
+    que.enQueue(9);
+    que.enQueue(10);
+    que.enQueue(11);
+    que.enQueue(12);
+    System.out.println(que);
+    System.out.println("shrink capacity = "+que.qcapacity());    
+    System.out.println("size = " + que.qsize());
+
+
+   System.out.println(que.isEmpty());
+   System.out.println(que.isFull());
+
+ }
+
+}
