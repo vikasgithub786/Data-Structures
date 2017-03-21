@@ -5,8 +5,6 @@ class TreeNode
     private Object data;
     private TreeNode left;
     private TreeNode right;
-  
-    
 
     public TreeNode(Object data)
     {
@@ -144,9 +142,5 @@ class Test
        tree.insert("5");
 
      System.out.println(tree);
-
-
    }
-
-
 }
