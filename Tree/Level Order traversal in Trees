@@ -6,8 +6,6 @@ class TreeNode
     private TreeNode left;
     private TreeNode right;
   
-    
-
     public TreeNode(Object data)
     {
        this.data = data;
@@ -124,7 +122,6 @@ class TreeDemo
         
 
    	  }
-    
      
       return l;
    }
@@ -147,8 +144,5 @@ class Test
 
        System.out.println(l);
 
-
    }
-
-
 }
