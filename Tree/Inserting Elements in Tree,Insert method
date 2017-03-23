@@ -120,9 +120,7 @@ class TreeDemo
          que1.offer(node.getRight());
         }
         
-
-   	  }
-    
+   	  }   
       s= s+"]";
       return s;
    }
