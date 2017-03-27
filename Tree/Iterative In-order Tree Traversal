@@ -5,8 +5,7 @@ class TreeNode
     private Object data;
     private TreeNode left;
     private TreeNode right;
-  
-    
+   
      public TreeNode()
      {
 
